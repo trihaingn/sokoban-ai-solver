@@ -487,7 +487,7 @@ Always work within the virtual environment:
 
 ## License
 
-This project is developed for educational purposes as part of the HCMUT AI course.
+This project is developed for educational purposes as part of the HCMUT - CSE - CO3061 - Introduction to Artifactial Intelligence course.
 
 ## Acknowledgments
 
