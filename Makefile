@@ -12,6 +12,8 @@ ifeq ($(OS),Windows_NT)
     PATH_SEP = \\
     CLEAN_PYCACHE = for /d /r . %%d in (__pycache__) do @if exist "%%d" rmdir /s /q "%%d"
     CLEAN_PYC = del /s /q *.pyc *.pyo 2>nul || true
+	BLUE=
+    RESET=
 else
     PYTHON = python3
     VENV_ACTIVATE = source venv/bin/activate
@@ -22,6 +24,8 @@ else
     PATH_SEP = /
     CLEAN_PYCACHE = find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
     CLEAN_PYC = find . -name "*.pyc" -delete 2>/dev/null || true; find . -name "*.pyo" -delete 2>/dev/null || true
+	BLUE=\033[34m
+    RESET=\033[0m
 endif
 
 .PHONY: help setup simulation test-bfs test-astar test-hill-climbing clean clear
@@ -63,10 +67,10 @@ else
 	venv/bin/pip install -r requirements.txt
 	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
-	@echo "$(BLUE)  source venv/bin/activate"
+	@echo "$(BLUE)  source venv/bin/activate$(RESET)"
 	@echo ""
 	@echo "To deactivate when done, run:"
-	@echo "$(BLUE)  deactivate"
+	@echo "$(BLUE)  deactivate$(RESET)"
 endif
 	@echo ""
 
