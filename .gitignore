@@ -45,9 +45,5 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Project specific
-tests/results_*.json
-tests/utils/move_cache.json
-
 # Pygame
 *.pyc
