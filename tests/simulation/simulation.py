@@ -3,7 +3,7 @@ from src.algorithm.solver import SokobanAlgorithm
 from tests.utils.move_cache import Cache
 
 game_set = "microCosmos"
-game_level = "level_02"
+game_level = "level_01"
 
 generator = Generator(game_set, game_level)
 game = generator.gen_game()
