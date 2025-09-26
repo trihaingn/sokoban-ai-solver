@@ -397,43 +397,116 @@ To add a new algorithm:
 
 ## Makefile Commands
 
-The cross-platform Makefile provides the following commands:
+The cross-platform Makefile provides comprehensive automation for setup, testing, and maintenance. All commands work seamlessly on Windows, macOS, and Linux.
 
 ### Setup Commands
+
 ```bash
-make setup           # Create virtual environment and install dependencies
-make setup-dev       # Setup development environment with additional tools
-make help           # Display all available commands
+make setup           # Create virtual environment and install all dependencies
+make help            # Display all available commands with descriptions
 ```
+
+The `make setup` command will:
+- Create a Python virtual environment in the `venv/` directory
+- Install all required packages from `requirements.txt`
+- Display platform-specific instructions for activating the virtual environment
+
+**Virtual Environment Activation:**
+- **Windows**: `venv\Scripts\activate.bat`
+- **macOS/Linux**: `source venv/bin/activate`
 
 ### Execution Commands
+
 ```bash
-make simulation      # Run interactive simulation
+make simulation      # Run interactive Sokoban simulation
 make test-bfs        # Test BFS algorithm on all levels
-make test-hill       # Test Hill Climbing algorithm (alias: test-hill-climbing)
-make test-astar      # Test A* algorithm
-make test-all        # Run all algorithm tests
+make test-astar      # Test A* algorithm on all levels  
+make test-hill-climbing # Test Hill Climbing algorithm on all levels
 ```
+
+Each test command will:
+1. Run the specified algorithm on all available levels
+2. Display performance metrics and results
+3. Automatically clean up Python cache files afterward
 
 ### Utility Commands
+
 ```bash
-make cache-stats     # Display cache statistics
-make clean           # Clean cache and temporary files
-make clean-all       # Clean everything including venv
+make clean           # Remove all Python cache files (__pycache__, .pyc, .pyo)
+make clear           # Remove virtual environment and all cache files
 ```
 
-### Development Commands
+The `make clean` command removes:
+- All `__pycache__` directories
+- All `.pyc` and `.pyo` compiled Python files
+
+The `make clear` command performs:
+- All clean operations
+- Complete removal of the virtual environment
+
+### Platform Detection and Compatibility
+
+The Makefile automatically detects your operating system and adjusts behavior accordingly:
+
+**Windows Detection:**
+- Uses `python` command (instead of `python3`)
+- Uses Windows path separators (`\`)
+- Uses `.bat` activation scripts
+- Uses Windows-specific file cleanup commands
+
+**macOS/Linux Detection:** 
+- Uses `python3` command
+- Uses Unix path separators (`/`)
+- Uses `source` for activation
+- Uses Unix-specific file cleanup commands
+
+### Usage Examples
+
+**Complete Setup Workflow:**
 ```bash
-make format          # Format code with black
-make lint            # Lint code with flake8  
-make type-check      # Type check with mypy
+# Initial setup
+make setup
+
+# Activate virtual environment
+# Windows: venv\Scripts\activate.bat
+# macOS/Linux: source venv/bin/activate
+
+# Run simulation
+make simulation
+
+# Test all algorithms
+make test-bfs
+make test-astar  
+make test-hill-climbing
+
+# Clean up when done
+make clean
 ```
 
-### Platform Detection
+**Development Workflow:**
+```bash
+# Setup environment
+make setup
 
-The Makefile automatically detects your operating system and adjusts commands accordingly:
-- **Windows**: Uses `python`, Windows path separators, `.bat` activation
-- **macOS/Linux**: Uses `python3`, Unix path separators, `source` activation
+# Activate environment and develop...
+
+# Test changes
+make test-astar
+
+# Clean up temporary files
+make clean
+
+# Complete cleanup (removes venv)
+make clear
+```
+
+### Error Handling
+
+The Makefile includes robust error handling:
+- Graceful handling of missing directories
+- Cross-platform file deletion commands
+- Clear error messages for common issues
+- Timeout protection for long-running tests
 
 ## Contributing
 
@@ -504,9 +577,14 @@ make setup
 # Run simulation
 make simulation
 
-# Run all tests
-make test-all
+# Run individual algorithm tests
+make test-bfs
+make test-astar  
+make test-hill-climbing
 
-# View help
+# View all available commands
 make help
+
+# Clean up when done
+make clean
 ```

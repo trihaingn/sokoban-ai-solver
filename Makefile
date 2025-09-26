@@ -1,203 +1,112 @@
 # Cross-platform Makefile for Sokoban AI Solver
-# Supports both Windows and macOS/Linux
+# Supports Windows, macOS, and Linux
 
-# Detect operating system
+# Platform detection
 ifeq ($(OS),Windows_NT)
-    DETECTED_OS := Windows
-    PYTHON := python
-    VENV_BIN := venv\Scripts
-    VENV_ACTIVATE := $(VENV_BIN)\activate.bat
-    VENV_PYTHON := $(VENV_BIN)\python.exe
-    MKDIR := mkdir
-    RM := rmdir /s /q
-    FIND_CLEAN := for /d /r . %%d in (__pycache__) do @if exist "%%d" rmdir /s /q "%%d"
-    FIND_PYC := del /s /q *.pyc 2>nul || exit 0
+    PYTHON = python
+    VENV_ACTIVATE = venv\Scripts\activate.bat
+    VENV_DEACTIVATE = venv\Scripts\deactivate.bat
+    VENV_PYTHON = venv\Scripts\python.exe
+    RM_RF = rmdir /s /q
+    MKDIR = mkdir
+    PATH_SEP = \\
+    CLEAN_PYCACHE = for /d /r . %%d in (__pycache__) do @if exist "%%d" rmdir /s /q "%%d"
+    CLEAN_PYC = del /s /q *.pyc *.pyo 2>nul || true
 else
-    DETECTED_OS := $(shell uname -s)
-    PYTHON := python3
-    VENV_BIN := venv/bin
-    VENV_ACTIVATE := $(VENV_BIN)/activate
-    VENV_PYTHON := $(VENV_BIN)/python
-    MKDIR := mkdir -p
-    RM := rm -rf
-    FIND_CLEAN := find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-    FIND_PYC := find . -name "*.pyc" -delete 2>/dev/null || true
+    PYTHON = python3
+    VENV_ACTIVATE = source venv/bin/activate
+    VENV_DEACTIVATE = deactivate
+    VENV_PYTHON = venv/bin/python
+    RM_RF = rm -rf
+    MKDIR = mkdir -p
+    PATH_SEP = /
+    CLEAN_PYCACHE = find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    CLEAN_PYC = find . -name "*.pyc" -delete 2>/dev/null || true; find . -name "*.pyo" -delete 2>/dev/null || true
 endif
+
+.PHONY: help setup simulation test-bfs test-astar test-hill-climbing clean clear
 
 # Default target
-.PHONY: help
 help:
-	@echo "Sokoban AI Solver - Cross-platform Make Commands"
+	@echo "Sokoban AI Solver - Available Commands:"
 	@echo ""
 	@echo "Setup Commands:"
-	@echo "  make setup           Create virtual environment and install dependencies"
-	@echo "  make setup-dev       Setup development environment with additional tools"
+	@echo "  make setup              - Create virtual environment and install dependencies"
 	@echo ""
 	@echo "Execution Commands:"
-	@echo "  make simulation      Run interactive simulation"
-	@echo "  make test-bfs        Test BFS algorithm on all levels"
-	@echo "  make test-hill       Test Hill Climbing algorithm"
-	@echo "  make test-astar      Test A* algorithm"
-	@echo "  make test-all        Run all algorithm tests"
+	@echo "  make simulation         - Run interactive simulation"
+	@echo "  make test-bfs           - Test BFS algorithm"
+	@echo "  make test-astar         - Test A* algorithm"
+	@echo "  make test-hill-climbing - Test Hill Climbing algorithm"
 	@echo ""
 	@echo "Utility Commands:"
-	@echo "  make cache-stats     Display cache statistics"
-	@echo "  make clean           Clean cache and temporary files"
-	@echo "  make clean-all       Clean everything including venv"
+	@echo "  make clean              - Remove Python cache files"
+	@echo "  make clear              - Remove virtual environment and cache files"
+	@echo "  make help               - Show this help message"
 	@echo ""
-	@echo "Detected OS: $(DETECTED_OS)"
-ifeq ($(DETECTED_OS),Windows)
-	@echo "To activate venv: venv\\Scripts\\activate.bat"
-else
-	@echo "To activate venv: source venv/bin/activate"
-endif
+	@echo "Platform: $(if $(findstring Windows_NT,$(OS)),Windows,Unix-like)"
 
-# Setup virtual environment
-.PHONY: setup
 setup:
-	@echo "Setting up virtual environment for $(DETECTED_OS)..."
+	@echo "Setting up virtual environment..."
 	$(PYTHON) -m venv venv
-ifeq ($(DETECTED_OS),Windows)
-	@echo "Installing dependencies..."
-	$(VENV_PYTHON) -m pip install --upgrade pip
-	$(VENV_PYTHON) -m pip install pygame
 	@echo ""
-	@echo "Setup complete! To activate the virtual environment:"
-	@echo "  venv\\Scripts\\activate.bat"
+	@echo "Installing requirements..."
+ifeq ($(OS),Windows_NT)
+	venv\Scripts\pip.exe install -r requirements.txt
 	@echo ""
-	@echo "Then run: make simulation"
+	@echo "Setup complete! To activate the virtual environment, run:"
+	@echo "  venv\Scripts\activate.bat"
+	@echo ""
+	@echo "To deactivate when done, run:"
+	@echo "  venv\Scripts\deactivate.bat"
 else
-	@echo "Installing dependencies..."
-	$(VENV_PYTHON) -m pip install --upgrade pip
-	$(VENV_PYTHON) -m pip install pygame
+	venv/bin/pip install -r requirements.txt
 	@echo ""
-	@echo "Setup complete! To activate the virtual environment:"
+	@echo "Setup complete! To activate the virtual environment, run:"
 	@echo "  source venv/bin/activate"
 	@echo ""
-	@echo "Then run: make simulation"
+	@echo "To deactivate when done, run:"
+	@echo "  deactivate"
 endif
+	@echo ""
 
-# Setup development environment
-.PHONY: setup-dev
-setup-dev: setup
-	@echo "Installing development dependencies..."
-ifeq ($(DETECTED_OS),Windows)
-	$(VENV_PYTHON) -m pip install pytest black flake8 mypy
-else
-	$(VENV_PYTHON) -m pip install pytest black flake8 mypy
-endif
-	@echo "Development environment setup complete!"
-
-# Check if virtual environment is activated
-.PHONY: check-venv
-check-venv:
-ifndef VIRTUAL_ENV
-	@echo "Warning: Virtual environment not activated!"
-	@echo "Please run:"
-ifeq ($(DETECTED_OS),Windows)
-	@echo "  venv\\Scripts\\activate.bat"
-else
-	@echo "  source venv/bin/activate"
-endif
-	@echo "Then run your command again."
-	@exit 1
-endif
-
-# Simulation commands
-.PHONY: simulation
 simulation:
-	@echo "Running Sokoban simulation..."
-ifeq ($(DETECTED_OS),Windows)
-	@set PYTHONPATH=.;src && set PYTHONWARNINGS=ignore::UserWarning:pygame && $(PYTHON) -m tests.simulation
-else
-	@PYTHONPATH=.:src PYTHONWARNINGS="ignore::UserWarning:pygame" $(PYTHON) -m tests.simulation
-endif
-	@$(MAKE) clean
+	@echo "Running simulation..."
+	$(PYTHON) -m tests.simulation.simulation
+	$(MAKE) clean
 
-# Algorithm testing commands
-.PHONY: test-bfs
 test-bfs:
-	@echo "Testing BFS algorithm..."
-ifeq ($(DETECTED_OS),Windows)
-	@set PYTHONPATH=.;src && set PYTHONWARNINGS=ignore::UserWarning && $(PYTHON) -u tests/test_bfs.py
-else
-	@PYTHONPATH=.:src PYTHONWARNINGS="ignore::UserWarning" $(PYTHON) -u tests/test_bfs.py
-endif
-	@$(MAKE) clean
+	@echo "Running BFS tests..."
+	$(PYTHON) -m tests.algorithm_tests.test_bfs
+	$(MAKE) clean
 
-.PHONY: test-hill test-hill-climbing
-test-hill test-hill-climbing:
-	@echo "Testing Hill Climbing algorithm..."
-ifeq ($(DETECTED_OS),Windows)
-	@set PYTHONPATH=.;src && set PYTHONWARNINGS=ignore::UserWarning && $(PYTHON) -u tests/test_hill_climbing.py
-else
-	@PYTHONPATH=.:src PYTHONWARNINGS="ignore::UserWarning" $(PYTHON) -u tests/test_hill_climbing.py
-endif
-	@$(MAKE) clean
-
-.PHONY: test-astar
 test-astar:
-	@echo "Testing A* algorithm..."
-ifeq ($(DETECTED_OS),Windows)
-	@set PYTHONPATH=.;src && set PYTHONWARNINGS=ignore::UserWarning && $(PYTHON) -u tests/test_astar.py
-else
-	@PYTHONPATH=.:src PYTHONWARNINGS="ignore::UserWarning" $(PYTHON) -u tests/test_astar.py
-endif
-	@$(MAKE) clean
+	@echo "Running A* tests..."
+	$(PYTHON) -m tests.algorithm_tests.test_astar
+	$(MAKE) clean
 
-.PHONY: test-all
-test-all:
-	@echo "Running all algorithm tests..."
-	@$(MAKE) test-bfs
-	@$(MAKE) test-hill-climbing
-	@$(MAKE) test-astar
-	@echo "All tests completed!"
+test-hill-climbing:
+	@echo "Running Hill Climbing tests..."
+	$(PYTHON) -m tests.algorithm_tests.test_hill_climbing
+	$(MAKE) clean
 
-# Cache and statistics
-.PHONY: cache-stats
-cache-stats:
-	@echo "Displaying cache statistics..."
-ifeq ($(DETECTED_OS),Windows)
-	@set PYTHONPATH=.;src && $(PYTHON) tests/cache_stats.py
-else
-	@PYTHONPATH=.:src $(PYTHON) tests/cache_stats.py
-endif
-
-# Cleanup commands
-.PHONY: clean
 clean:
-	@echo "Cleaning temporary files..."
-ifeq ($(DETECTED_OS),Windows)
-	@$(FIND_PYC)
-	@$(FIND_CLEAN)
+	@echo "Cleaning Python cache files..."
+ifeq ($(OS),Windows_NT)
+	@$(CLEAN_PYCACHE)
+	@$(CLEAN_PYC)
 else
-	@$(FIND_PYC)
-	@$(FIND_CLEAN)
+	@$(CLEAN_PYCACHE)
+	@$(CLEAN_PYC)
 endif
-	@echo "Cleanup complete!"
+	@echo "Clean complete."
 
-.PHONY: clean-all
-clean-all: clean
-	@echo "Removing virtual environment..."
-ifeq ($(DETECTED_OS),Windows)
-	@if exist venv $(RM) venv
+clear:
+	@echo "Removing virtual environment and cache files..."
+	$(MAKE) clean
+ifeq ($(OS),Windows_NT)
+	@if exist venv $(RM_RF) venv
 else
-	@$(RM) venv
+	@$(RM_RF) venv
 endif
-	@echo "Complete cleanup finished!"
-
-# Development commands
-.PHONY: format
-format:
-	@echo "Formatting code with black..."
-	$(VENV_PYTHON) -m black src/ tests/
-
-.PHONY: lint
-lint:
-	@echo "Linting code with flake8..."
-	$(VENV_PYTHON) -m flake8 src/ tests/
-
-.PHONY: type-check
-type-check:
-	@echo "Type checking with mypy..."
-	$(VENV_PYTHON) -m mypy src/
+	@echo "Clear complete."
