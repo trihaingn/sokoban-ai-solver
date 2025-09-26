@@ -1,0 +1,431 @@
+FFF download/MiniCosmos.slc
+Title: Mini Cosmos
+Description: This set is inpired from the sets Microcosmos and Nabokosmos. I created it for
+             people who never played Sokoban before. This set contains some twin levels which
+             allow you to learn progressively this game by adding a box. An expert should
+             solve it in less than one hour. This set contains 2 levels "1box", 16 levels
+             "2boxes" and 22 levels "3boxes".
+Author: Aymeric du Peloux
+Email: aymeric.du-peloux@gadz.org
+Website: http://membres.lycos.fr/nabokos
+
+  #####
+###   #
+# $ # ##
+# #  . #
+#    # #
+## #   #
+ #@  ###
+ #####
+Title: MINICOSMOS 01
+
+  #####
+###   #
+# $ # ##
+# #  . #
+#    # #
+##$#.  #
+ #@  ###
+ #####
+Title: MINICOSMOS 02
+
+  #####
+###   #
+# $ # ##
+# #  . #
+# .  # #
+##$#.$ #
+ #@  ###
+ #####
+Title: MINICOSMOS 03
+
+    ####
+#####  #
+#   $  #
+#  .#  #
+## ## ##
+#      #
+# @#   #
+#  #####
+####
+Title: MINICOSMOS 04
+
+    ####
+#####  #
+#   $  #
+# *.#  #
+## ## ##
+#      #
+# @#   #
+#  #####
+####
+Title: MINICOSMOS 05
+
+    ####
+#####  #
+#   *  #
+# *.#  #
+## ## ##
+# $    #
+# @#   #
+#  #####
+####
+Title: MINICOSMOS 06
+
+ #####
+ #   ##
+## #$ ##
+# $    #
+#. .#  #
+### @ ##
+  # # #
+  #   #
+  #####
+Title: MINICOSMOS 07
+
+ #####
+ #   ##
+##.#$ ##
+# $    #
+#. .#$ #
+### @ ##
+  # # #
+  #   #
+  #####
+Title: MINICOSMOS 08
+
+ #####
+ #   #
+##$# ###
+#   $@ #
+# #  # #
+# #. . #
+#   ####
+#####
+Title: MINICOSMOS 09
+
+ #####
+ #   #
+##$# ###
+#  .$@ #
+# #  # #
+# #..$ #
+#   ####
+#####
+Title: MINICOSMOS 10
+
+ #####
+##   ###
+# . .  #
+# # ## ##
+#    $$@#
+### #   #
+  #   ###
+  #####
+Title: MINICOSMOS 11
+
+ #####
+##   ###
+# . . .#
+# # ## ##
+#    $$@#
+### # $ #
+  #   ###
+  #####
+Title: MINICOSMOS 12
+
+    ####
+ ####  #
+## $   #
+#  # #$#
+#.@.   ##
+## # #  #
+ #      #
+ #  #####
+ ####
+Title: MINICOSMOS 13
+
+    ####
+ ####  #
+## $   #
+#  # #$#
+#.@..  ##
+## # #  #
+ #   $  #
+ #  #####
+ ####
+Title: MINICOSMOS 14
+
+   ####
+####  #
+# $   #
+#  .# ##
+## #.  #
+# @  $ #
+#   ####
+#####
+Title: MINICOSMOS 15
+
+   ####
+####  #
+# $ $ #
+#  .# ##
+## #.  #
+# @  $ #
+#.  ####
+#####
+Title: MINICOSMOS 16
+
+    #####
+   ##   ##
+  ## .#  #
+ ##   @  #
+##    #  #
+#  $ #####
+# * ##
+#  ##
+####
+Title: MINICOSMOS 17
+
+    #####
+   ##   ##
+  ## .#  #
+ ##   @  #
+##  * #  #
+#  $ #####
+# * ##
+#  ##
+####
+Title: MINICOSMOS 18
+
+####
+#  ####
+#     #
+#     #
+### ###
+# $$  ##
+# . .@ #
+####   #
+   #####
+Title: MINICOSMOS 19
+
+####
+#  ####
+#     #
+#     #
+### ###
+# $$$ ##
+# ...@ #
+####   #
+   #####
+Title: MINICOSMOS 20
+
+#####
+#   ###
+#     #
+##    #
+####$##
+#  $ ##
+# @   #
+###. .#
+  #####
+Title: MINICOSMOS 21
+
+#####
+#   ###
+# .   #
+## $  #
+####$##
+#  $ ##
+# @   #
+###. .#
+  #####
+Title: MINICOSMOS 22
+
+      ####
+#######  #
+#        #
+#  $ #.# #
+#  $## # ##
+###   @   #
+  ###  #  #
+    ##.  ##
+     #####
+Title: MINICOSMOS 23
+
+      ####
+#######  #
+#        #
+#  $ #.# #
+# $$## # ##
+### . @   #
+  ###  #  #
+    ##.  ##
+     #####
+Title: MINICOSMOS 24
+
+     ####
+   ###  #
+ ### .. #
+ # $$#  #
+## # #@##
+#       #
+#   #   #
+######  #
+     ####
+Title: MINICOSMOS 25
+
+     ####
+   ###  #
+ ### .. #
+ # $$#  #
+## # #@##
+#  *    #
+#   #   #
+######  #
+     ####
+Title: MINICOSMOS 26
+
+ ####
+ #  ####
+ #     #
+ # #.  #
+##*##$##
+#      #
+# # @  #
+#    ###
+######
+Title: MINICOSMOS 27
+
+ ####
+ #  ####
+ #     #
+ # #.  #
+##*##$##
+#    * #
+# # @  #
+#    ###
+######
+Title: MINICOSMOS 28
+
+########
+#   #  #
+#      #
+## #.  #
+#    ###
+# # . #
+# $$# #
+###  @#
+  #####
+Title: MINICOSMOS 29
+
+########
+#   #  #
+#      #
+## #. .#
+#    ###
+# # * #
+# $$# #
+###  @#
+  #####
+Title: MINICOSMOS 30
+
+#####
+#   ##
+# #  ##
+#. #$ #
+#  @  #
+#.##$##
+#    #
+######
+Title: MINICOSMOS 31
+
+####
+#  ###
+#    ##
+# .#$ #
+## @  #
+ #.#$##
+ #   #
+ #####
+Title: MINICOSMOS 32
+
+ #######
+ #  #  ##
+## **$. #
+#   #   #
+#   @ ###
+#  ####
+####
+Title: MINICOSMOS 33
+
+ #######
+##  #  #
+#  **$.##
+#   #   #
+### @   #
+  ####  #
+     ####
+Title: MINICOSMOS 34
+
+  ####
+###  ###
+#   *$ #
+# #  #@#
+# # *. #
+#   ####
+#####
+Title: MINICOSMOS 35
+
+#####
+#   ##
+# #  ###
+#   *$ #
+###  #@#
+  # *. #
+  #  ###
+  ####
+Title: MINICOSMOS 36
+
+  ####
+ ##  #
+##   ##
+#  *$ #
+# # #@#
+#  *. #
+###  ##
+  #  #
+  ####
+Title: MINICOSMOS 37
+
+  ####
+  #  ###
+ ## .  #
+##@$$$ #
+# . . ##
+#   ###
+#  ##
+####
+Title: MINICOSMOS 38
+
+  #####
+###   #
+#     #
+#  #.###
+##@$$$ #
+ #.#.# #
+ #     #
+ #  ####
+ ####
+Title: MINICOSMOS 39
+
+  ####
+ ##  #
+## . ##
+#@$$$ #
+#. .# #
+# #   #
+#   ###
+#####
+Title: MINICOSMOS 40
+
