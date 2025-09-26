@@ -90,7 +90,7 @@ The project includes a cross-platform Makefile that works on both Windows and ma
 1. **Clone the repository:**
 ```bash
 git clone <repository-url>
-cd asm
+cd sokoban-ai-solver
 ```
 
 2. **View available commands:**
@@ -120,25 +120,6 @@ venv\Scripts\activate.bat
 ```bash
 source venv/bin/activate
 ```
-
-5. **Verify installation:**
-```bash
-make simulation
-```
-
-### Development Setup
-
-For contributors who want to set up a development environment with additional tools:
-
-```bash
-make setup-dev
-```
-
-This installs additional development tools:
-- pytest (testing framework)
-- black (code formatter)
-- flake8 (linter)
-- mypy (type checker)
 
 ### Manual Setup (Alternative)
 
@@ -213,23 +194,12 @@ make test-bfs
 
 # Test Hill Climbing on all levels
 make test-hill-climbing
-# or shorthand:
-make test-hill
 
 # Test A* on all levels
 make test-astar
-
-# Test all algorithms sequentially
-make test-all
 ```
 
 ### Cache Management
-
-View cache statistics and performance comparisons:
-
-```bash
-make cache-stats
-```
 
 Clean temporary files:
 
@@ -240,7 +210,7 @@ make clean
 Complete cleanup (including virtual environment):
 
 ```bash
-make clean-all
+make clear
 ```
 
 ## Algorithms
@@ -291,7 +261,6 @@ Level level_01: SUCCESS - Time: 2.34s, Moves: 70
 Level level_02: SUCCESS - Time: 5.67s, Moves: 45
 Level level_03: TIMEOUT - Time: 30.00s
 ...
-Results saved to tests/results_bfs.json
 ```
 
 ### Performance Metrics
@@ -327,19 +296,6 @@ The cache system automatically stores successful solutions to avoid recomputatio
 - **Persistence**: Solutions persist across sessions
 - **Analysis**: Statistical analysis of solution quality
 
-### Cache Management
-
-```bash
-# View detailed cache statistics
-make cache-stats
-
-# Clean cache files (preserves venv)
-make clean
-
-# Complete cleanup including cache and venv
-make clean-all
-```
-
 ## Level Sets
 
 ### miniCosmos (40 levels)
@@ -361,21 +317,6 @@ To add new level sets:
 3. Run tests to verify compatibility
 
 ## Development
-
-### Code Quality Tools
-
-The development environment includes several code quality tools:
-
-```bash
-# Format code with black
-make format
-
-# Lint code with flake8
-make lint
-
-# Type check with mypy
-make type-check
-```
 
 ### Project Architecture
 
@@ -474,7 +415,7 @@ make setup
 # Run simulation
 make simulation
 
-# Test all algorithms
+# Test algorithms
 make test-bfs
 make test-astar  
 make test-hill-climbing
@@ -514,13 +455,11 @@ The Makefile includes robust error handling:
 
 1. Fork the repository
 2. Create a feature branch
-3. Set up development environment: `make setup-dev`
+3. Set up development environment: `make setup`
 4. Activate virtual environment
 5. Implement changes with tests
-6. Run quality checks: `make format && make lint && make type-check`
-7. Run full test suite: `make test-all`
-8. Update documentation as needed
-9. Submit pull request
+6. Update documentation as needed
+7. Submit pull request
 
 ### Code Style
 
@@ -528,8 +467,6 @@ The Makefile includes robust error handling:
 - Use type hints where appropriate
 - Add docstrings for public methods
 - Keep functions focused and modular
-- Use black for code formatting
-- Pass flake8 linting checks
 
 ### Testing Guidelines
 
@@ -544,10 +481,9 @@ The Makefile includes robust error handling:
 Always work within the virtual environment:
 
 1. Activate environment (see installation section)
-2. Install development dependencies: `make setup-dev`
-3. Run tests to ensure everything works
-4. Develop new features
-5. Test across platforms if possible
+2. Run tests to ensure everything works
+3. Develop new features
+4. Test across platforms if possible
 
 ## License
 
@@ -559,32 +495,3 @@ This project is developed for educational purposes as part of the HCMUT AI cours
 - Pygame community for rendering framework
 - Sokoban puzzle creators and community
 - Contributors who helped make this project cross-platform
-
----
-
-### Quick Start Summary
-
-```bash
-# Clone and setup
-git clone <repository-url>
-cd asm
-make setup
-
-# Activate virtual environment
-# Windows: venv\Scripts\activate.bat
-# macOS/Linux: source venv/bin/activate
-
-# Run simulation
-make simulation
-
-# Run individual algorithm tests
-make test-bfs
-make test-astar  
-make test-hill-climbing
-
-# View all available commands
-make help
-
-# Clean up when done
-make clean
-```

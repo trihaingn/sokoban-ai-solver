@@ -55,18 +55,18 @@ ifeq ($(OS),Windows_NT)
 	venv\Scripts\pip.exe install -r requirements.txt
 	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
-	@echo "  venv\Scripts\activate.bat"
+	@echo "$(BLUE)  venv\Scripts\activate.bat"
 	@echo ""
 	@echo "To deactivate when done, run:"
-	@echo "  venv\Scripts\deactivate.bat"
+	@echo "$(BLUE)  venv\Scripts\deactivate.bat"
 else
 	venv/bin/pip install -r requirements.txt
 	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
-	@echo "  source venv/bin/activate"
+	@echo "$(BLUE)  source venv/bin/activate"
 	@echo ""
 	@echo "To deactivate when done, run:"
-	@echo "  deactivate"
+	@echo "$(BLUE)  deactivate"
 endif
 	@echo ""
 
