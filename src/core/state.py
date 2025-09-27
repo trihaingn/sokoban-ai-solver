@@ -100,19 +100,19 @@ class SokobanState:
         return moves
 
     def _get_next_state(self, move):
-        next_state = copy.deepcopy(self)
-
-        _, next_ppos, next_cpos = move
+        _, old_crate_pos, new_crate_pos = move
         
-        next_state.crates.remove(next_ppos)
-        next_state.crates.add(next_cpos)
-
-        next_state.player = next_ppos
-
-        next_state.parent = self
-        next_state.prev_move = move
-
-        return next_state
+        # Create new crate set efficiently
+        new_crates = (self.crates - {old_crate_pos}) | {new_crate_pos}
+        
+        return SokobanState(
+            player=old_crate_pos,
+            crates=new_crates,
+            obstacles=self.obstacles,
+            targets=self.targets,    
+            parent=self,
+            prev_move=move
+        )
     
     def get_all_next_states(self):
         moves = self.get_all_moves()
