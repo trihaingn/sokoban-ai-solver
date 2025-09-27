@@ -55,24 +55,24 @@ asm/
 │           └── game.json     # Level definitions
 ├── tests/
 │   ├── simulation.py         # Interactive simulation runner
-│   ├── test_bfs.py           # BFS performance testing
+│   ├── test_bfs.py          # BFS performance testing
 │   ├── test_hill_climbing.py # Hill Climbing performance testing
-│   ├── test_astar.py         # A* performance testing
-│   ├── cache_stats.py        # Cache analysis tools
+│   ├── test_astar.py        # A* performance testing
+│   ├── cache_stats.py       # Cache analysis tools
 │   └── utils/
-│       ├── move_cache.py     # Cache management system
-│       └── move_cache.json   # Cached solutions
+│       ├── move_cache.py    # Cache management system
+│       └── move_cache.json  # Cached solutions
 ├── assets/
-│   └── images/               # Game sprites
+│   └── images/              # Game sprites
 │       ├── wall.png
 │       ├── box.png
 │       ├── player.png
 │       ├── target.png
 │       ├── box_on_target.png
 │       └── space.png
-├── venv/                     # Virtual environment (created by setup)
-├── Makefile                  # Cross-platform build automation
-└── README.md                 # This file
+├── venv/                    # Virtual environment (created by setup)
+├── Makefile                 # Cross-platform build automation
+└── README.md               # This file
 ```
 
 ## Installation
@@ -82,10 +82,16 @@ asm/
 - Python 3.8+ (3.9+ recommended)
 - Make (GNU Make or compatible)
 - Git
+- **Windows users**: WSL (Windows Subsystem for Linux) is required
 
 ### Quick Setup (Recommended)
 
-The project includes a cross-platform Makefile that works on both Windows and macOS/Linux.
+The project includes a cross-platform Makefile that works on macOS/Linux and Windows (via WSL).
+
+**Windows users**: You must use WSL (Windows Subsystem for Linux) to run this project. Install WSL first:
+```cmd
+wsl --install
+```
 
 1. **Clone the repository:**
 ```bash
@@ -104,19 +110,11 @@ make setup
 ```
 
 This command will:
-- Detect your operating system automatically
 - Create a Python virtual environment
 - Install all required dependencies (pygame, etc.)
-- Display activation instructions for your operating system
+- Display activation instructions
 
 4. **Activate the virtual environment:**
-
-**On Windows:**
-```cmd
-venv\Scripts\activate.bat
-```
-
-**On macOS/Linux:**
 ```bash
 source venv/bin/activate
 ```
@@ -131,13 +129,6 @@ python -m venv venv
 ```
 
 2. **Activate virtual environment:**
-
-**Windows:**
-```cmd
-venv\Scripts\activate.bat
-```
-
-**macOS/Linux:**
 ```bash
 source venv/bin/activate
 ```
@@ -154,7 +145,7 @@ pip install pygame
 
 1. **Python not found:** Ensure Python 3.8+ is installed and in your PATH
 2. **Make not found:** Install Make for your operating system:
-   - Windows: Install via Chocolatey (`choco install make`) or use Git Bash
+   - Windows: Use WSL (Windows Subsystem for Linux) - Make is included
    - macOS: Install Xcode Command Line Tools (`xcode-select --install`)
    - Linux: Usually pre-installed, or install via package manager
 
@@ -338,7 +329,7 @@ To add a new algorithm:
 
 ## Makefile Commands
 
-The cross-platform Makefile provides comprehensive automation for setup, testing, and maintenance. All commands work seamlessly on Windows, macOS, and Linux.
+The cross-platform Makefile provides comprehensive automation for setup, testing, and maintenance. All commands work seamlessly on macOS, Linux, and Windows (via WSL).
 
 ### Setup Commands
 
@@ -350,11 +341,13 @@ make help            # Display all available commands with descriptions
 The `make setup` command will:
 - Create a Python virtual environment in the `venv/` directory
 - Install all required packages from `requirements.txt`
-- Display platform-specific instructions for activating the virtual environment
+- Display instructions for activating the virtual environment
 
 **Virtual Environment Activation:**
-- **Windows**: `venv\Scripts\activate.bat`
-- **macOS/Linux**: `source venv/bin/activate`
+```bash
+source venv/bin/activate
+```
+**Note for Windows users**: Use WSL for all commands
 
 ### Execution Commands
 
@@ -385,20 +378,18 @@ The `make clear` command performs:
 - All clean operations
 - Complete removal of the virtual environment
 
-### Platform Detection and Compatibility
+### Platform Compatibility
 
-The Makefile automatically detects your operating system and adjusts behavior accordingly:
+The Makefile is designed for Unix-like environments:
 
-**Windows Detection:**
-- Uses `python` command (instead of `python3`)
-- Uses Windows path separators (`\`)
-- Uses `.bat` activation scripts
-- Uses Windows-specific file cleanup commands
+**Supported Platforms:**
+- macOS and Linux: Native support
+- Windows: Requires WSL (Windows Subsystem for Linux)
 
-**macOS/Linux Detection:** 
+**Standard Commands:**
 - Uses `python3` command
 - Uses Unix path separators (`/`)
-- Uses `source` for activation
+- Uses `source` for virtual environment activation
 - Uses Unix-specific file cleanup commands
 
 ### Usage Examples
@@ -409,8 +400,7 @@ The Makefile automatically detects your operating system and adjusts behavior ac
 make setup
 
 # Activate virtual environment
-# Windows: venv\Scripts\activate.bat
-# macOS/Linux: source venv/bin/activate
+source venv/bin/activate
 
 # Run simulation
 make simulation
@@ -423,6 +413,7 @@ make test-hill-climbing
 # Clean up when done
 make clean
 ```
+**Note**: Windows users must run all commands in WSL
 
 **Development Workflow:**
 ```bash
@@ -487,7 +478,7 @@ Always work within the virtual environment:
 
 ## License
 
-This project is developed for educational purposes as part of the HCMUT - CSE - CO3061 - Introduction to Artifactial Intelligence course.
+This project is developed for educational purposes as part of the HCMUT AI course.
 
 ## Acknowledgments
 
