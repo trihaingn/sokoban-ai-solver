@@ -22,59 +22,14 @@ class SokobanState:
     def __hash__(self):
         return hash((self.player, frozenset(self.crates), frozenset(self.obstacles), frozenset(self.targets)))
     
-    def __lt__(self, other):
-        return self.heuristic() < other.heuristic()
-    
-    def heuristic(self):
-        if self.is_solved():
-            return 0
-        
-        total_manhattan = 0
-        for crate in self.crates:
-            if self.targets:
-                min_dist = min(abs(crate[0] - target[0]) + abs(crate[1] - target[1]) 
-                             for target in self.targets)
-                total_manhattan += min_dist
-
-        misplaced_crates = len(self.crates - self.targets)
-
-        return max(total_manhattan, misplaced_crates)
-    
-    def heuristic_hill_climbing(self):
-        if self.is_solved():
-            return 0
-        
-        total_cost = 0
-        
-        crate_to_target_cost = 0
-        for crate in self.crates:
-            if self.targets:
-                min_dist = min(abs(crate[0] - target[0]) + abs(crate[1] - target[1]) 
-                             for target in self.targets)
-                crate_to_target_cost += min_dist
-        
-        crates_not_on_targets = len(self.crates - self.targets)
-        not_on_target_penalty = crates_not_on_targets * 10
-        
-        player_to_crate_cost = 0
-        if self.crates:
-            min_player_dist = min(abs(self.player[0] - crate[0]) + abs(self.player[1] - crate[1]) 
-                                for crate in self.crates)
-            player_to_crate_cost = min_player_dist * 0.1
-        
-        crates_on_targets = len(self.crates & self.targets)
-        on_target_bonus = -crates_on_targets * 15
-        
-        total_cost = crate_to_target_cost + not_on_target_penalty + player_to_crate_cost + on_target_bonus
-        
-        return total_cost
-    
     def is_deadlock(self):
         return False
     
     def get_reachable(self):
         visited = set()
         queue = deque([self.player])
+        visited.add(self.player)  # Mark the starting position as visited
+        
         while queue:
             cx, cy = queue.popleft()
             for dx, dy in self.__MOVES:
@@ -103,7 +58,7 @@ class SokobanState:
         _, old_crate_pos, new_crate_pos = move
         
         # Create new crate set efficiently
-        new_crates = (self.crates - {old_crate_pos}) | {new_crate_pos}
+        new_crates = frozenset((self.crates - {old_crate_pos}) | {new_crate_pos})
         
         return SokobanState(
             player=old_crate_pos,

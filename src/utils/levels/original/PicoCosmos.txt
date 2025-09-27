@@ -1,0 +1,234 @@
+FFF download/PicoCosmos.slc
+Title: Pico Cosmos
+Description: This set is the logical continuation of the sets
+             Minicosmos-Microcosmos-Nabokosmos (It sounds like Milli-Micro-Nano-Pico !). It's
+             intented to the fanatics of Sokoban. This set contains 3 levels "6boxes", 7
+             levels "7boxes" and 10 levels "8boxes".
+Author: Aymeric du Peloux
+Email: aymeric.du-peloux@gadz.org
+Website: http://membres.lycos.fr/nabokos
+
+ #####
+ #   ####
+ #      #
+### **# #
+#  #* *@#
+#   * ###
+#  ##  #
+##     #
+ #.$#  #
+ #  ####
+ ####
+Title: PICOKOSMOS 01
+
+       #####
+     ###   #
+    ## . # #
+   ##  $$  #
+  ## *$. ###
+ ## $  ###
+## .$. #
+#  @ ###
+#  . #
+######
+Title: PICOKOSMOS 02
+
+   ####
+   #  #
+####  ###
+#  *$*  #
+#  *@*# #
+## .**  #
+## #   ##
+#    ###
+#   ##
+#####
+Title: PICOKOSMOS 03
+
+   ####
+ ###  ##
+## * * #
+#  * * ##
+#  * *  #
+#  $ * @#
+###. ####
+  #  #
+  ####
+Title: PICOKOSMOS 04
+
+   #####
+ ###   ##
+##   #  ##
+#  * * * #
+#+  $ *  #
+#### * ###
+   #  ##
+   ####
+Title: PICOKOSMOS 05
+
+  ####
+ ##  ###
+##  .  #
+# $.$.$##
+# .$.$. #
+##$ #.$ #
+ #  @  ##
+ #######
+Title: PICOKOSMOS 06
+
+   #####
+####   ##
+#  * *  #
+#  . *  #
+##$.$*$##
+ # . *@#
+ #   ###
+ #####
+Title: PICOKOSMOS 07
+
+    ####
+   ##  #
+ ###   ####
+## * * *  #
+#  * * $  #
+#  * # * ##
+## . ##@ #
+ #  ######
+ ####
+Title: PICOKOSMOS 08
+
+ ####
+ #  ###
+##    ####
+#  * *   #
+# $#*#*  #
+## * *   #
+ #  + * ##
+ ###  ###
+   ####
+Title: PICOKOSMOS 09
+
+ ####
+##  ####
+#      ##
+# **@** #
+##  #   #
+ # **$ ##
+ #  *  #
+ ## . ##
+  ##  #
+   ####
+Title: PICOKOSMOS 10
+
+    ####
+    #  ###
+  ###    #
+### ** * #
+#  . *$@##
+#  ***  #
+##    ###
+ ###  #
+   ####
+Title: PICOKOSMOS 11
+
+ #####
+ # + #
+ #$.$#
+ # * #
+ # * #
+ # * ##
+## *  #
+#  *  #
+#    ##
+##  ##
+ ####
+Title: PICOKOSMOS 12
+
+        #####
+##### ###   #
+#   ###     #
+# * * # * +##
+##     $* ##
+ #  *## * #
+ ##  ##  ##
+  ########
+Title: PICOKOSMOS 13
+
+  #######
+ ##  #  #
+ #      #
+## # #  #
+#  *** ##
+#@#*  $#
+#  *** #
+### .  #
+  ###  #
+    ####
+Title: PICOKOSMOS 14
+
+  ####
+ ##  ##
+ #@ $ #
+## .* ###
+# $$*.* #
+# #.. # #
+#   $   #
+###  ####
+  ####
+Title: PICOKOSMOS 15
+
+ ######
+ #    #
+## * .##
+# *$*  ##
+#@ * *  #
+##* *   #
+ #   ####
+ #####
+Title: PICOKOSMOS 16
+
+ #####
+ # + #
+ #$.$#
+ # * #
+ # * #
+## * #
+#  * ##
+#  *  #
+#  *  #
+###  ##
+  ####
+Title: PICOKOSMOS 17
+
+ ########
+ #   #  #
+##.     #
+# ***** #
+#   * * #
+## #$  ##
+ #  @###
+ #####
+Title: PICOKOSMOS 18
+
+  ####
+  #  ####
+  #    @##
+ ##** ** #
+##  **.  #
+# $  # ###
+#      #
+########
+Title: PICOKOSMOS 19
+
+  ####
+ ##  #
+##   ###
+#  *** #
+#  *@# #
+## **. #
+ #     #
+ # #$###
+ #   #
+ #####
+Title: PICOKOSMOS 20
+

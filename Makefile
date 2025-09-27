@@ -1,5 +1,6 @@
 # Cross-platform Makefile for Sokoban AI Solver
 # Supports Windows, macOS, and Linux
+.SILENT:
 
 # Platform detection
 ifeq ($(OS),Windows_NT)
