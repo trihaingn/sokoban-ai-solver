@@ -1,4 +1,4 @@
-# Sokoban AI Solver
+# Sokoban Solver
 
 A comprehensive Sokoban puzzle solver implementing multiple AI algorithms with performance comparison and caching system.
 
@@ -96,7 +96,7 @@ wsl --install
 1. **Clone the repository:**
 ```bash
 git clone <repository-url>
-cd sokoban-ai-solver
+cd sokoban-solver
 ```
 
 2. **View available commands:**
