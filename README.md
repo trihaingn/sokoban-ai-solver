@@ -55,24 +55,24 @@ asm/
 │           └── game.json     # Level definitions
 ├── tests/
 │   ├── simulation.py         # Interactive simulation runner
-│   ├── test_bfs.py          # BFS performance testing
+│   ├── test_bfs.py           # BFS performance testing
 │   ├── test_hill_climbing.py # Hill Climbing performance testing
-│   ├── test_astar.py        # A* performance testing
-│   ├── cache_stats.py       # Cache analysis tools
+│   ├── test_astar.py         # A* performance testing
+│   ├── cache_stats.py        # Cache analysis tools
 │   └── utils/
-│       ├── move_cache.py    # Cache management system
-│       └── move_cache.json  # Cached solutions
+│       ├── move_cache.py     # Cache management system
+│       └── move_cache.json   # Cached solutions
 ├── assets/
-│   └── images/              # Game sprites
+│   └── images/               # Game sprites
 │       ├── wall.png
 │       ├── box.png
 │       ├── player.png
 │       ├── target.png
 │       ├── box_on_target.png
 │       └── space.png
-├── venv/                    # Virtual environment (created by setup)
-├── Makefile                 # Cross-platform build automation
-└── README.md               # This file
+├── venv/                     # Virtual environment (created by setup)
+├── Makefile                  # Cross-platform build automation
+└── README.md                 # This file
 ```
 
 ## Installation
