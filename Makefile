@@ -64,10 +64,6 @@ setup:
 ifeq ($(OS),Windows_NT)
 	venv\Scripts\pip.exe install -r requirements.txt
 	@echo ""
-	@echo "Creating cache directory and files..."
-	@$(CREATE_CACHE_DIR)
-	@$(CREATE_CACHE_FILE)
-	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
 	@echo "$(BLUE)  venv\Scripts\activate.bat"
 	@echo ""
@@ -75,10 +71,6 @@ ifeq ($(OS),Windows_NT)
 	@echo "$(BLUE)  venv\Scripts\deactivate.bat"
 else
 	venv/bin/pip install -r requirements.txt
-	@echo ""
-	@echo "Creating cache directory and files..."
-	@$(CREATE_CACHE_DIR)
-	@$(CREATE_CACHE_FILE)
 	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
 	@echo "$(BLUE)  source venv/bin/activate$(RESET)"
@@ -122,11 +114,15 @@ ifeq ($(OS),Windows_NT)
 	@if exist venv $(RM_RF) venv
 	@echo "Removing moving cache..."
 	@$(CLEAN_MOVE_CACHE)
+	@$(CREATE_CACHE_DIR)
+	@$(CREATE_CACHE_FILE)
 else
 	@$(CLEAN_PYCACHE)
 	@$(CLEAN_PYC)
 	@$(RM_RF) venv
 	@echo "Removing moving cache..."
 	@$(CLEAN_MOVE_CACHE)
+	@$(CREATE_CACHE_DIR)
+	@$(CREATE_CACHE_FILE)
 endif
 	@echo "Clear complete."
