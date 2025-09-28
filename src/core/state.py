@@ -1,10 +1,9 @@
-import copy
 from collections import deque
 
 class SokobanState:
     __MOVES = ((-1, 0), (1, 0), (0, -1), (0, 1))
 
-    def __init__(self, player, crates, obstacles, targets, parent: "SokobanState" = None, prev_move = None):
+    def __init__(self, player, crates, obstacles, targets, bound, parent: "SokobanState" = None, prev_move = None):
         self.parent = parent
         self.prev_move = prev_move
         
@@ -12,7 +11,8 @@ class SokobanState:
         self.crates = crates
         self.obstacles = obstacles
         self.targets = targets
-            
+        self.bound = bound
+
     def __eq__(self, value):
         if type(value) is SokobanState:
             return self.player == value.player and self.crates == value.crates and self.obstacles == value.obstacles and self.targets == value.targets
@@ -66,7 +66,8 @@ class SokobanState:
             obstacles=self.obstacles,
             targets=self.targets,    
             parent=self,
-            prev_move=move
+            prev_move=move,
+            bound=self.bound
         )
     
     def get_all_next_states(self):

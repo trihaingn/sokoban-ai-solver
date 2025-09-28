@@ -21,15 +21,14 @@ A comprehensive Sokoban puzzle solver implementing multiple AI algorithms with p
 
 This project implements a Sokoban puzzle solver using three different AI algorithms:
 - **Breadth-First Search (BFS)** - Guarantees optimal solutions
-- **Hill Climbing** - Fast heuristic-based approach
-- **A*** - Optimal pathfinding with admissible heuristics
+- **Hybrid Heuristic** - Fast heuristic-based approach
 
 The solver includes a visual pygame renderer, comprehensive testing framework, and intelligent caching system to avoid redundant computations.
 
 ## Features
 
 - **Cross-Platform Support**: Works on Windows, macOS, and Linux
-- **Multiple AI Algorithms**: BFS, Hill Climbing, and A* implementations
+- **Multiple AI Algorithms**: BFS and Hybrid Heuristic implementations
 - **Visual Rendering**: Pygame-based animation of solution paths
 - **Performance Testing**: Comprehensive benchmarking across all levels
 - **Intelligent Caching**: Automatic move caching to avoid recomputation
@@ -56,8 +55,7 @@ asm/
 ├── tests/
 │   ├── simulation.py         # Interactive simulation runner
 │   ├── test_bfs.py          # BFS performance testing
-│   ├── test_hill_climbing.py # Hill Climbing performance testing
-│   ├── test_astar.py        # A* performance testing
+│   ├── test_hybrid_heuristic.py # Hybrid Heuristic performance testing
 │   ├── cache_stats.py       # Cache analysis tools
 │   └── utils/
 │       ├── move_cache.py    # Cache management system
@@ -172,7 +170,7 @@ make simulation
 This will:
 - Load a predefined level (miniCosmos level_01)
 - Check cache for existing solutions
-- Run Hill Climbing algorithm if no cached solution exists
+- Run Hybrid Heuristic algorithm if no cached solution exists
 - Display animated solution using pygame
 
 ### Performance Testing
@@ -180,14 +178,11 @@ This will:
 Test individual algorithms across all levels:
 
 ```bash
-# Test BFS on all levels
+# Test BFS
 make test-bfs
 
-# Test Hill Climbing on all levels
-make test-hill-climbing
-
-# Test A* on all levels
-make test-astar
+# Test Hybrid Heuristic
+make test-hybrid-heuristic
 ```
 
 ### Cache Management
@@ -212,17 +207,11 @@ make clear
 - **Time Complexity**: O(b^d) where b is branching factor, d is solution depth
 - **Best For**: Finding optimal solutions on smaller levels
 
-### Hill Climbing
+### Hybrid Heuristic
 - **Approach**: Uses heuristic function to guide search toward goal
 - **Optimality**: May not find optimal solution
 - **Time Complexity**: Generally faster than BFS
 - **Best For**: Quick solutions on complex levels
-
-### A* (A-Star)
-- **Approach**: Combines actual cost with heuristic estimate
-- **Optimality**: Guarantees optimal solution with admissible heuristic
-- **Time Complexity**: O(b^d) in worst case, but typically much faster than BFS
-- **Best For**: Optimal solutions with better performance than BFS
 
 ### Heuristic Functions
 
@@ -273,8 +262,7 @@ The cache system automatically stores successful solutions to avoid recomputatio
   "miniCosmos": {
     "level_01": {
       "bfs": [[0,1], [1,2], [2,3]],
-      "hill_climbing": [[0,1], [1,2], [2,4]],
-      "a*": [[0,1], [1,2], [2,3]]
+      "hybrid_heuristic": [[0,1], [1,2], [2,4]],
     }
   }
 }
@@ -353,9 +341,8 @@ source venv/bin/activate
 
 ```bash
 make simulation      # Run interactive Sokoban simulation
-make test-bfs        # Test BFS algorithm on all levels
-make test-astar      # Test A* algorithm on all levels  
-make test-hill-climbing # Test Hill Climbing algorithm on all levels
+make test-bfs        # Test BFS algorithm
+make test-hybrid-heuristic # Test Hybrid Heuristic algorithm
 ```
 
 Each test command will:
@@ -407,30 +394,12 @@ make simulation
 
 # Test algorithms
 make test-bfs
-make test-astar  
-make test-hill-climbing
+make test-hybrid-heuristic
 
 # Clean up when done
 make clean
 ```
 **Note**: Windows users must run all commands in WSL
-
-**Development Workflow:**
-```bash
-# Setup environment
-make setup
-
-# Activate environment and develop...
-
-# Test changes
-make test-astar
-
-# Clean up temporary files
-make clean
-
-# Complete cleanup (removes venv)
-make clear
-```
 
 ### Error Handling
 

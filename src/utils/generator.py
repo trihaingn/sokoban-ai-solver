@@ -68,7 +68,7 @@ class Generator:
                 self.bound = maxX, maxY
     
     def gen_state(self):
-        return SokobanState(self.player, frozenset(self.crates), frozenset(self.obstacles), frozenset(self.targets))
+        return SokobanState(self.player, frozenset(self.crates), frozenset(self.obstacles), frozenset(self.targets), self.bound)
     
     def gen_game(self):
         return SokobanGame(self.player, self.crates, self.obstacles, self.targets, self.bound)

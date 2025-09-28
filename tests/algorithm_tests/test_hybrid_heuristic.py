@@ -1,30 +1,34 @@
 from src.utils.generator import Generator
 from src.algorithm.solver import SokobanAlgorithm
 from tests.utils.move_cache import Cache
+from tests.utils.timeout import timeout
 
 import time
 
+@timeout(120)
 def test(game_set, game_level):
-    try:
+    try:  
         cache = Cache()
-        solver = SokobanAlgorithm()
         generator = Generator(game_set, game_level)
+        state = generator.gen_state()
+        solver = SokobanAlgorithm(state)
 
+        print(f"{game_set}, {game_level}")  
         stime = time.time()
-        _, moves = solver.hill_climbing(generator.gen_state())
+        _, moves = solver.hybrid_heuristic()
         etime = time.time() - stime
 
         if not moves:
             raise Exception("no solution found")
 
-        print(f"{game_set}, {game_level}, time: {etime:.4f}")
+        print(f"time: {etime:.4f}")
 
-        cache.save_move(game_set, game_level, "hill_climbing", moves)
+        cache.save_move(game_set, game_level, "hybrid_heuristic", moves)
 
     except Exception as e:
         print(f"error in {game_set}, {game_level}: {e}")
 
-def test_all_levels():
+def test_all():
     game_sets = ["miniCosmos", "microCosmos", "naboCosmos", "picoCosmos"]
     game_levels = [f"level_{i:02d}" for i in range(1, 41)]
 
@@ -34,4 +38,4 @@ def test_all_levels():
                 break
             test(game_set, game_level)
 
-test("naboCosmos", "level_14")
+test("picoCosmos", "level_11")

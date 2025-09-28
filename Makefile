@@ -11,6 +11,9 @@ ifeq ($(OS),Windows_NT)
     RM_RF = rmdir /s /q
     MKDIR = mkdir
     PATH_SEP = \\
+	CLEAN_MOVE_CACHE = if exist "tests\utils\move_cache.json" del "tests\utils\move_cache.json"
+	CREATE_CACHE_DIR = if not exist "tests\utils" mkdir "tests\utils"
+	CREATE_CACHE_FILE = echo {} > "tests\utils\move_cache.json"
     CLEAN_PYCACHE = for /d /r . %%d in (__pycache__) do @if exist "%%d" rmdir /s /q "%%d"
     CLEAN_PYC = del /s /q *.pyc *.pyo 2>nul || true
 	BLUE=
@@ -23,13 +26,16 @@ else
     RM_RF = rm -rf
     MKDIR = mkdir -p
     PATH_SEP = /
+	CLEAN_MOVE_CACHE = rm -f tests/utils/move_cache.json 2>/dev/null || true
+	CREATE_CACHE_DIR = mkdir -p tests/utils
+	CREATE_CACHE_FILE = echo '{}' > tests/utils/move_cache.json
     CLEAN_PYCACHE = find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
     CLEAN_PYC = find . -name "*.pyc" -delete 2>/dev/null || true; find . -name "*.pyo" -delete 2>/dev/null || true
 	BLUE=\033[34m
     RESET=\033[0m
 endif
 
-.PHONY: help setup simulation test-bfs test-astar test-hill-climbing clean clear
+.PHONY: help setup simulation test-bfs test-hybrid-heuristic clean clear
 
 # Default target
 help:
@@ -41,8 +47,7 @@ help:
 	@echo "Execution Commands:"
 	@echo "  make simulation         - Run interactive simulation"
 	@echo "  make test-bfs           - Test BFS algorithm"
-	@echo "  make test-astar         - Test A* algorithm"
-	@echo "  make test-hill-climbing - Test Hill Climbing algorithm"
+	@echo "  make test-hybrid-heuristic - Test Hybrid Heuristic algorithm"
 	@echo ""
 	@echo "Utility Commands:"
 	@echo "  make clean              - Remove Python cache files"
@@ -59,6 +64,10 @@ setup:
 ifeq ($(OS),Windows_NT)
 	venv\Scripts\pip.exe install -r requirements.txt
 	@echo ""
+	@echo "Creating cache directory and files..."
+	@$(CREATE_CACHE_DIR)
+	@$(CREATE_CACHE_FILE)
+	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
 	@echo "$(BLUE)  venv\Scripts\activate.bat"
 	@echo ""
@@ -66,6 +75,10 @@ ifeq ($(OS),Windows_NT)
 	@echo "$(BLUE)  venv\Scripts\deactivate.bat"
 else
 	venv/bin/pip install -r requirements.txt
+	@echo ""
+	@echo "Creating cache directory and files..."
+	@$(CREATE_CACHE_DIR)
+	@$(CREATE_CACHE_FILE)
 	@echo ""
 	@echo "Setup complete! To activate the virtual environment, run:"
 	@echo "$(BLUE)  source venv/bin/activate$(RESET)"
@@ -85,14 +98,9 @@ test-bfs:
 	$(PYTHON) -m tests.algorithm_tests.test_bfs
 	$(MAKE) clean
 
-test-astar:
-	@echo "Running A* tests..."
-	$(PYTHON) -m tests.algorithm_tests.test_astar
-	$(MAKE) clean
-
-test-hill-climbing:
-	@echo "Running Hill Climbing tests..."
-	$(PYTHON) -m tests.algorithm_tests.test_hill_climbing
+test-hybrid-heuristic:
+	@echo "Running Hybrid Heuristic tests..."
+	$(PYTHON) -m tests.algorithm_tests.test_hybrid_heuristic
 	$(MAKE) clean
 
 clean:
@@ -108,10 +116,17 @@ endif
 
 clear:
 	@echo "Removing virtual environment and cache files..."
-	$(MAKE) clean
 ifeq ($(OS),Windows_NT)
+	@$(CLEAN_PYCACHE)
+	@$(CLEAN_PYC)
 	@if exist venv $(RM_RF) venv
+	@echo "Removing moving cache..."
+	@$(CLEAN_MOVE_CACHE)
 else
+	@$(CLEAN_PYCACHE)
+	@$(CLEAN_PYC)
 	@$(RM_RF) venv
+	@echo "Removing moving cache..."
+	@$(CLEAN_MOVE_CACHE)
 endif
 	@echo "Clear complete."

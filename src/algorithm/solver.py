@@ -1,8 +1,14 @@
 import heapq
 from collections import deque
+
 from src.core.state import SokobanState
+from src.algorithm.deadlock import DeadlockDetector
 
 class SokobanAlgorithm:
+    def __init__(self, state: "SokobanState"):
+        self.state = state
+        self.deadlock_detector = DeadlockDetector(state)
+
     def get_full_path(self, solved_state: "SokobanState"):
         if solved_state:
             return_states_path = []
@@ -18,10 +24,10 @@ class SokobanAlgorithm:
         else:
             return [], []
         
-    def bfs(self, init_state: "SokobanState"):
+    def bfs(self):
         solved_state = None
         visited = set()
-        queue = deque([init_state])
+        queue = deque([self.state])
 
         while queue:
             current = queue.popleft()
@@ -55,12 +61,12 @@ class SokobanAlgorithm:
         return total_cost
     
     
-    def hill_climbing(self, init_state: "SokobanState"):
+    def hybrid_heuristic(self):
         solved_state = None
         visited = set()
         # heap: (heuristic_value, counter, state)
         counter = 0  # Tie-breaker counter
-        heap = [(self.greedy_cost(init_state), counter, init_state)]
+        heap = [(self.greedy_cost(self.state), counter, self.state)]
 
         while heap:
             # Get the state with the best (lowest) heuristic value
@@ -79,7 +85,7 @@ class SokobanAlgorithm:
             # Generate all possible next states and add to heap
             for next_state in current.get_all_next_states():
                 # Check visited and deadlock before adding to heap (more efficient)
-                if next_state not in visited and not next_state.is_deadlock():
+                if next_state not in visited and not self.deadlock_detector.is_deadlock(next_state):
                     counter += 1
                     heuristic_value = self.greedy_cost(next_state)
                     heapq.heappush(heap, (heuristic_value, counter, next_state))
