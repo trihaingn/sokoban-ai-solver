@@ -6,7 +6,7 @@ class DeadlockDetector:
     __MOVES = ((0,1),(1,0),(0,-1),(-1,0))
     def __init__(self, init_state: "SokobanState"):
         maxX, maxY = init_state.bound
-        free_squares = set(((x,y) for x in range(maxX) for y in range(maxY))) - init_state.obstacles
+        self.free_squares = frozenset(((x,y) for x in range(maxX) for y in range(maxY))) - init_state.obstacles
         box_reachable = set()
 
         for target in init_state.targets:
@@ -25,8 +25,7 @@ class DeadlockDetector:
                         box_reachable.add(prev_crate_pos)
                         queue.append(prev_crate_pos)
 
-        self.dead_squares = frozenset(free_squares - box_reachable)
-
+        self.dead_squares = frozenset(self.free_squares - box_reachable)
     
     def cannot_push(self, state: "SokobanState", crate: tuple[int, int], visited: set) -> bool:
         if (crate in visited):
@@ -41,7 +40,7 @@ class DeadlockDetector:
                         ((right in state.crates and self.cannot_push(state,right, visited)) or (left in state.crates and self.cannot_push(state, left, visited))))
                     and ((up in state.obstacles or down in state.obstacles) or 
                         (up in self.dead_squares and down in self.dead_squares) or 
-                        ((up in state.crates and self.cannot_push(state, up, visited)) or (down in state.crates and self.cannot_push(state, down, visited)))))
+                        ((up in state.crates and self.cannot_push(state, up, visited)) or (down in state.crates and self.cannot_push(state, down, visited)))))      
 
     def is_deadlock(self, state: "SokobanState"):
         for crate in state.crates - state.targets:

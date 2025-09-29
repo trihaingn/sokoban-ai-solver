@@ -8,12 +8,13 @@ class SokobanAlgorithm:
     def __init__(self, state: "SokobanState"):
         self.state = state
         self.deadlock_detector = DeadlockDetector(state)
+        self.df = max(state.bound)
 
     def get_full_path(self, solved_state: "SokobanState"):
         if solved_state:
             return_states_path = []
             return_moves_path = []
-            current: SokobanState = solved_state
+            current = solved_state
             while current:
                 return_states_path = [current] + return_states_path
                 if current.prev_move:
@@ -44,21 +45,15 @@ class SokobanAlgorithm:
         
     def greedy_cost(self, state: "SokobanState"):
         if state.is_solved():
-            return - 15 * len(state.targets)
+            return -self.df * len(state.targets)
 
         crate_to_target_cost = 0
-        for crate in state.crates:
+        for crate in state.crates - state.targets:
             min_dist = min(abs(crate[0] - target[0]) + abs(crate[1] - target[1]) 
                             for target in state.targets)
             crate_to_target_cost += min_dist
-
-        crates_not_on_targets = len(state.crates - state.targets)
-
-        crates_on_targets = len(state.crates & state.targets)
-
-        total_cost = crate_to_target_cost + 10 + crates_not_on_targets - 15 * crates_on_targets
         
-        return total_cost
+        return crate_to_target_cost + self.df * (len(state.crates - state.targets) - len(state.crates & state.targets))
     
     
     def hybrid_heuristic(self):

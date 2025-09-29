@@ -38,7 +38,7 @@ class SokobanState:
                     queue.append(next_pos)
                     visited.add(next_pos)
         
-        return visited
+        return frozenset(visited)
 
     def get_all_moves(self):
         moves = []

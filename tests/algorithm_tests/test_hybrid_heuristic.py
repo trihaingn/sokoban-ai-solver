@@ -38,4 +38,4 @@ def test_all():
                 break
             test(game_set, game_level)
 
-test("picoCosmos", "level_11")
+test_all()
